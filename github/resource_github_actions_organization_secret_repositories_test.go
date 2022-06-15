@@ -35,9 +35,9 @@ func TestAccGithubActionsOrganizationSecretRepositories(t *testing.T) {
 
 			resource "github_actions_organization_secret_repositories" "org_secret_repos" {
 				secret_name = "%s"
-				selected_repository_ids = [
-					github_repository.test_repo_1.repo_id,
-					github_repository.test_repo_2.repo_id
+				selected_repositories = [
+					github_repository.test_repo_1.name,
+					github_repository.test_repo_2.name
 				]
 			}
 		`, randomID, randomID, secret_name)
@@ -47,7 +47,7 @@ func TestAccGithubActionsOrganizationSecretRepositories(t *testing.T) {
 				"github_actions_organization_secret_repositories.org_secret_repos", "secret_name",
 			),
 			resource.TestCheckResourceAttr(
-				"github_actions_organization_secret_repositories.org_secret_repos", "selected_repository_ids.#", "2",
+				"github_actions_organization_secret_repositories.org_secret_repos", "selected_repositories.#", "2",
 			),
 		)
 
